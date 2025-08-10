@@ -4,12 +4,6 @@ import pandas as pd
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-import gdown
-import os
-
-if not os.path.exists("similarity.pkl"):
-    url = "https://drive.google.com/drive/folders/1kz5CH49hGR992R89R5IsFU6RhXqrO2NK"
-    similaritry=gdown.download(url, "similarity.pkl", quiet=False)
 
 # Create a session with retry logic
 session = requests.Session()
@@ -39,6 +33,7 @@ def recommend(movie):
 
 movies_dict=pickle.load(open('movies.pkl', 'rb'))
 movies=pd.DataFrame(movies_dict)
+similarity=pickle.load(open('similarity.pkl', 'rb'))
 st.title('Movie Recommender')
 selected_movie_name = st.selectbox(
 "Which Movie You wanna watch?",
